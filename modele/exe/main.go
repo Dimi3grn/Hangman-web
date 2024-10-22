@@ -6,8 +6,10 @@ package main
 
 import (
 	// replace with your actual module name
+	hangman "Hangman/modele"
 	"fmt"
 	"net/http"
+	"os"
 	"text/template"
 )
 
@@ -18,21 +20,31 @@ func main() {
 		fmt.Println(fmt.Sprint("erreur %s", err.Error()))
 		return
 	}
-	/*
-		hangman.Clear()
-		hangman.GetFiles()
-
-		fileName := hangman.SelectFile()
-		wordsArr := hangman.ReadWordsFromFile(fileName)
-
-		hiddenWord := hangman.SelectRandomWord(wordsArr)*/
 
 	http.HandleFunc("/landingPage", func(w http.ResponseWriter, r *http.Request) {
 		temp.ExecuteTemplate(w, "Landing", nil)
 	})
 
 	http.HandleFunc("/hangman/mainGame", func(w http.ResponseWriter, r *http.Request) {
-		temp.ExecuteTemplate(w, "Hangman", nil)
+		type HangmanPage struct {
+			MotCache string
+			Display  string
+		}
+		displayData := HangmanPage{}
+
+		fileName := "halloween.txt"
+		wordsArr := hangman.ReadWordsFromFile(fileName)
+
+		hiddenWord := hangman.SelectRandomWord(wordsArr)
+
+		displayData.MotCache = hiddenWord
+		displayData.Display = string(hangman.InitializeDisplay(hiddenWord))
+		fmt.Fprintln(os.Stdout, displayData.MotCache)
+		temp.ExecuteTemplate(w, "Hangman", displayData)
+	})
+
+	http.HandleFunc("/hangman/treatment", func(w http.ResponseWriter, r *http.Request) {
+
 	})
 
 	fileServer := http.FileServer(http.Dir("./view/assets"))

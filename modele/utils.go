@@ -11,7 +11,7 @@ import (
 )
 
 func ReadWordsFromFile(fileName string) []string {
-	file, err := os.Open(fileName)
+	file, err := os.Open("./mots/" + fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -70,30 +70,32 @@ func GetFiles() {
 			files = append(files, entry.Name()[0:len(entry.Name())-4])
 		}
 	}
-	// Vérifier si un fichier est passé en argument
-	fmt.Println("Choisissez un thème de mots parmis la lise :")
-	red := "\033[31m"
-	yellow := "\033[33m"
-	reset := "\033[0m"
-	green := "\033[32m"
-	for _, k := range files {
-		diffi := getDifficulty(".\\mots\\" + k + ".txt")
-		fmt.Print(" -")
-		switch {
-		case diffi == "hard":
+	/*
+		// Vérifier si un fichier est passé en argument
+		fmt.Println("Choisissez un thème de mots parmis la lise :")
+		red := "\033[31m"
+		yellow := "\033[33m"
+		reset := "\033[0m"
+		green := "\033[32m"
+		for _, k := range files {
+			diffi := getDifficulty(".\\mots\\" + k + ".txt")
+			fmt.Print(" -")
+			switch {
+			case diffi == "hard":
 
-			fmt.Printf("%s%s%s\n", red, k, reset)
+				fmt.Printf("%s%s%s\n", red, k, reset)
 
-		case diffi == "medium":
-			fmt.Printf("%s%s%s\n", yellow, k, reset)
+			case diffi == "medium":
+				fmt.Printf("%s%s%s\n", yellow, k, reset)
 
-		case diffi == "easy":
-			fmt.Printf("%s%s%s\n", green, k, reset)
-		default:
-			fmt.Println(k)
+			case diffi == "easy":
+				fmt.Printf("%s%s%s\n", green, k, reset)
+			default:
+				fmt.Println(k)
+			}
+
 		}
-
-	}
+	*/
 }
 
 func SelectRandomWord(wordsArr []string) string {
