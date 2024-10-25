@@ -2,6 +2,7 @@ package hangman
 
 import (
 	"fmt"
+	"os"
 )
 
 func PlayGame(hiddenWord string, display []rune) {
@@ -103,4 +104,67 @@ func UpdateDisplay(hiddenWord string, display []rune, option string) bool {
 		}
 	}
 	return correctGuess // Renvoie true si la lettre est correcte
+}
+
+func Verify(option string, attemptedWords []string, attemptedLetters []string, hiddenWord string, display string, tries int) {
+
+	// Vérifier si l'utilisateur a proposé un mot entier
+	if len(option) > 1 {
+		if contains(attemptedWords, option) {
+			Clear()
+			fmt.Println("Vous avez déjà proposé ce mot, essayez-en un autre.")
+
+		}
+		if option == hiddenWord {
+			// Si le mot est correct, on met à jour l'affichage et on termine le jeu
+			display = hiddenWord
+			fmt.Println("Vous avez deviné le mot, bien joué à vous !")
+
+		} else {
+			// Si le mot est incorrect, retire deux essais
+			tries -= 2
+			attemptedWords = append(attemptedWords, option)
+			if tries <= 0 {
+				fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
+
+			}
+			fmt.Println("Mauvaise proposition ! Deux tentatives en moins.")
+
+		}
+	}
+
+	// Vérifier si la lettre a déjà été tentée
+	if contains(attemptedLetters, option) {
+
+		fmt.Println("Vous avez déjà choisi cette lettre, essayez-en une autre.")
+
+	}
+
+	// Ajouter la lettre à la liste des lettres tentées
+	attemptedLetters = append(attemptedLetters, option)
+
+	displayRunes := []rune(display)
+	correctGuess := false
+	for k, char := range hiddenWord {
+		if option == string(char) {
+			displayRunes[k] = char // Modify the rune at the correct index
+			correctGuess = true
+			fmt.Fprintln(os.Stdout, "lettre deviné")
+
+		}
+	}
+
+	// Convert the rune slice back to a string
+	display = string(displayRunes)
+
+	if !correctGuess {
+		tries--
+	}
+
+	if CheckComp(displayRunes) == false {
+		fmt.Println("Vous avez deviné le mot, bien joué à vous !")
+	} else if tries == 0 {
+		fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
+	}
+
 }

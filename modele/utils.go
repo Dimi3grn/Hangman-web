@@ -114,7 +114,11 @@ func InitializeDisplay(hiddenWord string) []rune {
 
 	indicesChoisis := []int{}
 	for len(indicesChoisis) < amountofL {
-		ind := rand.Intn(len(hiddenWord))
+		ind := 0
+		if len(hiddenWord) > 0 {
+			ind = rand.Intn(len(hiddenWord))
+
+		}
 		dejaChoisi := false
 		for _, i := range indicesChoisis {
 			if i == ind {

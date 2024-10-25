@@ -21,30 +21,47 @@ func main() {
 		return
 	}
 
+	type HangmanPage struct {
+		MotCache   string
+		Display    string
+		Tries      int
+		AttWrods   []string
+		AttLetters []string
+	}
+	displayData := HangmanPage{}
+
 	http.HandleFunc("/landingPage", func(w http.ResponseWriter, r *http.Request) {
 		temp.ExecuteTemplate(w, "Landing", nil)
 	})
 
-	http.HandleFunc("/hangman/mainGame", func(w http.ResponseWriter, r *http.Request) {
-		type HangmanPage struct {
-			MotCache string
-			Display  string
-		}
-		displayData := HangmanPage{}
-
+	http.HandleFunc("/landingPage/treatment", func(w http.ResponseWriter, r *http.Request) {
 		fileName := "halloween.txt"
 		wordsArr := hangman.ReadWordsFromFile(fileName)
-
+		fmt.Fprintln(os.Stdout, wordsArr)
 		hiddenWord := hangman.SelectRandomWord(wordsArr)
+		fmt.Fprintln(os.Stdout, hiddenWord)
 
-		displayData.MotCache = hiddenWord
-		displayData.Display = string(hangman.InitializeDisplay(hiddenWord))
+		fmt.Fprintln(os.Stdout, hangman.InitializeDisplay(hiddenWord))
+
+		displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}}
+		fmt.Fprintln(os.Stdout, hiddenWord)
+
+		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
+
+	})
+
+	http.HandleFunc("/hangman/mainGame", func(w http.ResponseWriter, r *http.Request) {
+
 		fmt.Fprintln(os.Stdout, displayData.MotCache)
 		temp.ExecuteTemplate(w, "Hangman", displayData)
 	})
 
 	http.HandleFunc("/hangman/treatment", func(w http.ResponseWriter, r *http.Request) {
 
+		hangman.Verify(r.FormValue("mot"), displayData.AttWrods, displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries)
+		fmt.Fprintln(os.Stdout, displayData.Display)
+		fmt.Fprintln(os.Stdout, displayData.Tries)
+		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 	})
 
 	fileServer := http.FileServer(http.Dir("./view/assets"))
