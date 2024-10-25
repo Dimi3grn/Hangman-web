@@ -58,7 +58,7 @@ func main() {
 
 	http.HandleFunc("/hangman/treatment", func(w http.ResponseWriter, r *http.Request) {
 
-		hangman.Verify(r.FormValue("mot"), displayData.AttWrods, displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries)
+		displayData.Display, displayData.Tries = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries)
 		fmt.Fprintln(os.Stdout, displayData.Display)
 		fmt.Fprintln(os.Stdout, displayData.Tries)
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)

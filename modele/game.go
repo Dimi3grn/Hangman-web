@@ -106,58 +106,51 @@ func UpdateDisplay(hiddenWord string, display []rune, option string) bool {
 	return correctGuess // Renvoie true si la lettre est correcte
 }
 
-func Verify(option string, attemptedWords []string, attemptedLetters []string, hiddenWord string, display string, tries int) {
-
+func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int) (string, int) {
 	// Vérifier si l'utilisateur a proposé un mot entier
 	if len(option) > 1 {
-		if contains(attemptedWords, option) {
+		if contains(*attemptedWords, option) {
 			Clear()
 			fmt.Println("Vous avez déjà proposé ce mot, essayez-en un autre.")
-
 		}
 		if option == hiddenWord {
 			// Si le mot est correct, on met à jour l'affichage et on termine le jeu
 			display = hiddenWord
 			fmt.Println("Vous avez deviné le mot, bien joué à vous !")
-
 		} else {
 			// Si le mot est incorrect, retire deux essais
 			tries -= 2
-			attemptedWords = append(attemptedWords, option)
+			*attemptedWords = append(*attemptedWords, option) // Utiliser le pointeur pour modifier la liste
 			if tries <= 0 {
 				fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
-
 			}
 			fmt.Println("Mauvaise proposition ! Deux tentatives en moins.")
-
 		}
 	}
 
 	// Vérifier si la lettre a déjà été tentée
-	if contains(attemptedLetters, option) {
-
+	if contains(*attemptedLetters, option) {
 		fmt.Println("Vous avez déjà choisi cette lettre, essayez-en une autre.")
-
+		return display, tries // retourner les valeurs sans les modifier
 	}
 
 	// Ajouter la lettre à la liste des lettres tentées
-	attemptedLetters = append(attemptedLetters, option)
+	*attemptedLetters = append(*attemptedLetters, option) // Utiliser le pointeur pour modifier la liste
 
 	displayRunes := []rune(display)
 	correctGuess := false
 	for k, char := range hiddenWord {
 		if option == string(char) {
-			displayRunes[k] = char // Modify the rune at the correct index
+			displayRunes[k] = char // Modifier le rune à l'index correct
 			correctGuess = true
-			fmt.Fprintln(os.Stdout, "lettre deviné")
-
+			fmt.Fprintln(os.Stdout, "lettre devinée")
 		}
 	}
 
-	// Convert the rune slice back to a string
+	// Convertir la tranche de runes en chaîne
 	display = string(displayRunes)
 
-	if !correctGuess {
+	if !correctGuess && len(option) <= 1 {
 		tries--
 	}
 
@@ -167,4 +160,5 @@ func Verify(option string, attemptedWords []string, attemptedLetters []string, h
 		fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
 	}
 
+	return display, tries // retourner les valeurs mises à jour
 }
