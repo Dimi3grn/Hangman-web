@@ -1,22 +1,71 @@
 {{define "Hangman"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Jeux</title>
     <link rel="stylesheet" href="/static/css/maingame.css">
 </head>
 <body>
+    <h1>Hangman WEB</h1>
+        <h2>Votre mot à deviner</h2>
+    <p id= "mot">{{.Display}}</p>
     
-    {{.Display}}
-    
+    <h3>Pseudo</h3>
+    <p id="output"></p>
 
     <form action="/hangman/treatment">
-        <label for="mot">Votre mot</label>
-        <input type="text" name="mot" id ="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" required>
+        <label for="mot">Votre saisie</label>
+        <input type="text" name="mot" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" required>
         <button type="submit">Valider</button>
     </form>
+    <div class="keyboard" id="keyboard">
+        <div class="row1">
+            <div class="key" onclick="handleKeyClick('a')">A</div>
+            <div class="key" onclick="handleKeyClick('z')">Z</div>
+            <div class="key" onclick="handleKeyClick('e')">E</div>
+            <div class="key" onclick="handleKeyClick('r')">R</div>
+            <div class="key" onclick="handleKeyClick('t')">T</div>
+            <div class="key" onclick="handleKeyClick('y')">Y</div>
+            <div class="key" onclick="handleKeyClick('u')">U</div>
+            <div class="key" onclick="handleKeyClick('i')">I</div>
+            <div class="key" onclick="handleKeyClick('o')">O</div>
+            <div class="key" onclick="handleKeyClick('p')">P</div>
+        </div>
+        <div class="row2">
+            <div class="key" onclick="handleKeyClick('q')">Q</div>
+            <div class="key" onclick="handleKeyClick('s')">S</div>
+            <div class="key" onclick="handleKeyClick('d')">D</div>
+            <div class="key" onclick="handleKeyClick('f')">F</div>
+            <div class="key" onclick="handleKeyClick('g')">G</div>
+            <div class="key" onclick="handleKeyClick('h')">H</div>
+            <div class="key" onclick="handleKeyClick('j')">J</div>
+            <div class="key" onclick="handleKeyClick('k')">K</div>
+            <div class="key" onclick="handleKeyClick('l')">L</div>
+            <div class="key" onclick="handleKeyClick('m')">M</div>
+        </div>
+        <div class="row3">
+            <div class="key" onclick="handleKeyClick('w')">W</div>
+            <div class="key" onclick="handleKeyClick('x')">X</div>
+            <div class="key" onclick="handleKeyClick('c')">C</div>
+            <div class="key" onclick="handleKeyClick('v')">V</div>
+            <div class="key" onclick="handleKeyClick('b')">B</div>
+            <div class="key" onclick="handleKeyClick('n')">N</div>
+        </div>
+    </div>
+
+  
+    <script>
+        // Récupère et affiche le texte depuis le localStorage
+        const input = localStorage.getItem("pseudo");
+        document.getElementById("output").innerText = input;
+
+        function handleKeyClick(letter) {
+            console.log("Lettre choisie : " + letter);
+        }
+      
+    </script>
 </body>
 </html>
 {{end}}

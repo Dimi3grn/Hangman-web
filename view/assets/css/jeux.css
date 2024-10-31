@@ -21,8 +21,6 @@
 .corps,
 .bras-gauche,
 .bras-droit,
-.poignet,
-.doigt,
 .jambe-gauche,
 .jambe-droit {
     display: none; /* Tout est masqué par défaut */

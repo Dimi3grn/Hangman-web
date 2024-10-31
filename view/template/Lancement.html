@@ -1,10 +1,10 @@
-{{ define "accueil" }}
+{{define "Landing"}}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/lancement.css">
+    <link rel="stylesheet" href="/static/css/lancement.css">
     <title>Accueil</title>
 </head>
 <body>
@@ -31,14 +31,17 @@
                 <input type="text" id="pseudo" name="pseudo" pattern="[A-Za-zÀ-ÿ0-9]{1,32}" title="Le pseudo doit contenir uniquement des lettres ou des chiffres, entre 1 et 32 caractères." required><br><br>
                 
                 <h3>Choisissez votre difficulté de jeu :</h3>
-                <div class="difficulty-buttons">
-                    <button type="submit" name="difficulty" value="facile">Facile</button>
-                    <button type="submit" name="difficulty" value="moyen">Moyen</button>
-                    <button type="submit" name="difficulty" value="difficile">Difficile</button>
+                <div class="mode-buttons">
+                    <form action="/landingPage/treatment">
+                        <button>Halloween</button></form>
+                    <form action="/landingPage/treatment/noel">
+                        <button type="submit" name="mode" value="Noel">Noël</button></form>
+                    <form action="/landingPage/treatment/summer">
+                        <button type="submit" name="mode" value="Summer">Summer</button></form>
                 </div>
             </form>
         </div>
     </div>
 </body>
 </html>
-{{ end }}
+{{end}}

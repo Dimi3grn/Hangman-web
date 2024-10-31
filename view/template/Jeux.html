@@ -1,9 +1,10 @@
+{{define "Jeu"}}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/jeux.css">
+    <link rel="stylesheet" href="/static/css/jeux.css">
     <title>Jeux</title>
 </head>
 <body>
@@ -26,16 +27,16 @@
         
             <div class="button-container">
                 <!-- Boutons pour afficher chaque étape -->
-                <button onclick="showStep(1),showStep(2),showStep(3),showStep(4),showStep(5),showStep(6),showStep(7),showStep(8),showStep(9),showStep(10)">Étape 1 : Base</button>
+                <button onclick="showStep(1)">Étape 1 : Base</button>
                 <button onclick="showStep(2)">Étape 2 : Barre verticale</button>
                 <button onclick="showStep(3)">Étape 3 : Barre horizontale</button>
                 <button onclick="showStep(4)">Étape 4 : Corde</button>
                 <button onclick="showStep(5)">Étape 5 : Tête</button>
                 <button onclick="showStep(6)">Étape 6 : Corps</button>
                 <button onclick="showStep(7)">Étape 7 : Bras gauche</button>
-                <button onclick="showStep(8),(9),(10)">Étape 8 : Bras droit</button>
-                <button onclick="showStep(11)">Étape 9 : Jambe gauche</button>
-                <button onclick="showStep(12)">Étape 10 : Jambe droite</button>
+                <button onclick="showStep(8)">Étape 8 : Bras droit</button>
+                <button onclick="showStep(9)">Étape 9 : Jambe gauche</button>
+                <button onclick="showStep(10)">Étape 10 : Jambe droite</button>
             </div>
         
             <script>
@@ -49,9 +50,7 @@
                         'tete',
                         'corps',
                         'bras-gauche',
-                        'bras-droit',
-                        'poignet',
-                        'doit',
+                        'bras-droit',   
                         'jambe-gauche',
                         'jambe-droit'
                     ];
@@ -73,3 +72,4 @@
     </div>
 </body>
 </html>
+{{end}}
