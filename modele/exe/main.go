@@ -15,7 +15,7 @@ import (
 
 func main() {
 
-	temp, err := template.ParseGlob("./view/template/*.html")
+	temp, err := template.ParseGlob("../../view/template/*.html")
 	if err != nil {
 		fmt.Println(fmt.Sprint("erreur %s", err.Error()))
 		return

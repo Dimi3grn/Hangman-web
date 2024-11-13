@@ -11,7 +11,7 @@ import (
 )
 
 func ReadWordsFromFile(fileName string) []string {
-	file, err := os.Open("./mots/" + fileName)
+	file, err := os.Open("../mots/" + fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
