@@ -14,8 +14,7 @@ import (
 )
 
 func main() {
-
-	temp, err := template.ParseGlob("../../view/template/*.html")
+	temp, err := template.ParseGlob("./../../view/template/*.html")
 	if err != nil {
 		fmt.Println(fmt.Sprint("erreur %s", err.Error()))
 		return
@@ -31,10 +30,12 @@ func main() {
 	displayData := HangmanPage{}
 	//Page D'accueil
 	http.HandleFunc("/landingPage", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Landing Page")
 		temp.ExecuteTemplate(w, "landing", nil)
 	})
 	//Choisir le thème du mot
 	http.HandleFunc("/landingPage/treatment", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Landing Page Treatment")
 		fileName := "./../../mots/halloween.txt"
 		wordsArr := hangman.ReadWordsFromFile(fileName)
 		fmt.Fprintln(os.Stdout, wordsArr)
@@ -52,20 +53,23 @@ func main() {
 
 	// Page de Jeux
 	http.HandleFunc("/hangman/mainGame", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Main Game")
 
 		fmt.Fprintln(os.Stdout, displayData.MotCache)
 		temp.ExecuteTemplate(w, "Hangman", displayData)
 	})
 
 	http.HandleFunc("/hangman/treatment", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Treatment")
 
 		displayData.Display, displayData.Tries = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries)
 		fmt.Fprintln(os.Stdout, displayData.Display)
 		fmt.Fprintln(os.Stdout, displayData.Tries)
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 	})
-
+	fmt.Fprintln(os.Stdout, "Serveur démarré sur http://localhost:8080")
 	fileServer := http.FileServer(http.Dir("./../../view/assets"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 	http.ListenAndServe("localhost:8080", nil)
+
 }
