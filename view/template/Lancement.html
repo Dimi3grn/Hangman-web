@@ -1,11 +1,11 @@
-{{define "landing"}}
+{{define "Landing"}}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
     <link rel="stylesheet" href="/static/css/lancement.css">
+    <title>Accueil</title>
 </head>
 <body>
     <div class="container">
@@ -23,33 +23,25 @@
             </ul>
             <p>A vous de jouer, Bonne chance !</p>
         </div>
+
         <div class="form-section"> 
             <h3>Veuillez entrer votre pseudo pour commencer :</h3>
-            
+            <form action="/start" method="POST">
                 <label for="pseudo">Pseudo :</label>
-                <input type="text" autocomplete="off" id="pseudo" name="pseudo" pattern="[A-Za-zÀ-ÿ0-9]{1,32}" title="Le pseudo doit contenir uniquement des lettres ou des chiffres, entre 1 et 32 caractères." required><br><br>
+                <input type="text" id="pseudo" name="pseudo" pattern="[A-Za-zÀ-ÿ0-9]{1,32}" title="Le pseudo doit contenir uniquement des lettres ou des chiffres, entre 1 et 32 caractères." required><br><br>
                 
                 <h3>Choisissez votre difficulté de jeu :</h3>
-
-    <nav class="difficulty">
-        <form action="/landingPage/treatment">
-            <button onclick="saveInput()">Halloween</button></form>
-        <form action="/landingPage/treatment/noel">
-            <button onclick="saveInput()">Noël</button></form>
-        <form action="/landingPage/treatment/summer">
-            <button onclick="saveInput()">Summer</button></form>
-
-    </nav>
-    
+                <div class="mode-buttons">
+                    <form action="/landingPage/treatment">
+                        <button>Halloween</button></form>
+                    <form action="/landingPage/treatment/noel">
+                        <button type="submit" name="mode" value="Noel">Noël</button></form>
+                    <form action="/landingPage/treatment/summer">
+                        <button type="submit" name="mode" value="Summer">Summer</button></form>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<script>
-    function saveInput() {
-        const input = document.getElementById("pseudo").value;
-        localStorage.setItem("pseudo", input);
-        window.location.href = "display.html";
-    }
-</script>
 </body>
 </html>
 {{end}}

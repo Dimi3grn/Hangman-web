@@ -29,13 +29,13 @@ func main() {
 		AttLetters []string
 	}
 	displayData := HangmanPage{}
-
+	//Page D'accueil
 	http.HandleFunc("/landingPage", func(w http.ResponseWriter, r *http.Request) {
-		temp.ExecuteTemplate(w, "Landing", nil)
+		temp.ExecuteTemplate(w, "landing", nil)
 	})
-
+	//Choisir le thème du mot
 	http.HandleFunc("/landingPage/treatment", func(w http.ResponseWriter, r *http.Request) {
-		fileName := "halloween.txt"
+		fileName := "./../../mots/halloween.txt"
 		wordsArr := hangman.ReadWordsFromFile(fileName)
 		fmt.Fprintln(os.Stdout, wordsArr)
 		hiddenWord := hangman.SelectRandomWord(wordsArr)
@@ -50,6 +50,7 @@ func main() {
 
 	})
 
+	// Page de Jeux
 	http.HandleFunc("/hangman/mainGame", func(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintln(os.Stdout, displayData.MotCache)
@@ -64,7 +65,7 @@ func main() {
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 	})
 
-	fileServer := http.FileServer(http.Dir("./view/assets"))
+	fileServer := http.FileServer(http.Dir("./../../view/assets"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 	http.ListenAndServe("localhost:8080", nil)
 }

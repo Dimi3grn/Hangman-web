@@ -1,0 +1,131 @@
+/* Styles de base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Bleu léger */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Titre principal */
+h1 {
+    font-size: 36px;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+/* Sous-titres */
+h2, h3 {
+    color: #444;
+    margin: 10px 0;
+}
+
+/* Style du mot à deviner */
+#mot {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 5px;
+    padding: 10px;
+    background-color: #e0e7ff; /* Bleu très pâle */
+    border: 2px solid #333;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+/* Style du formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+label {
+    font-size: 18px;
+    color: #333;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 250px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Pseudo */
+#output {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 28px;
+    }
+    #mot {
+        font-size: 20px;
+        padding: 8px;
+    }
+    input[type="text"], button {
+        width: 90%;
+    }
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+    max-width: 800px; /* Limiter la largeur pour le centrer */
+    margin-left: auto; /* Centrer horizontalement */
+    margin-right: auto; /* Centrer horizontalement */
+}
+.key {
+    padding: 15px;
+    border: 1px solid #333;
+    text-align: center;
+    cursor: pointer;
+    user-select: none; /* Empêche la sélection de texte */
+    background-color: #f9f9f9; /* Couleur de fond des touches */
+    transition: background-color 0.2s; /* Effet de transition */
+}
+.key:hover {
+    background-color: #e0e0e0; /* Couleur au survol */
+}
+#display {
+    font-size: 24px;
+    margin: 20px 0;
+    text-align: center; /* Centrer l'affichage */
+}
+.row1 {
+    display: contents; /* Permet d'organiser les touches en rangées */
+}
