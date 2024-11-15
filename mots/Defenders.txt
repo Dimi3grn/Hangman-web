@@ -12,7 +12,7 @@ mute
 frost
 valkyrie
 caveira
-eccho
+echo
 mira
 lesion
 ela
@@ -33,6 +33,6 @@ thorn
 azami
 solis
 fenrir
-turabao
+tubarao
 sentry
 skopos

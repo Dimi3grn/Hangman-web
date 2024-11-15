@@ -79,17 +79,15 @@
                     </div>
             </div>
             <div class="container">
-                <div class="box">
+                <form action="/landingPage/treatment" method="POST" class="box" onclick="this.submit();">
                     <div class="ScrollTitle">
-                        <form action="/landingPage/treatment">
-                            <button class="ScrollTitle Dumbahhhbutton" onclick="saveInput()">Défenseurs</button></form>
-                        
+                        <button class="ScrollTitle Dumbahhhbutton">Défenseurs</button>
                     </div>
                     <div class="image-wrapper">
                         <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
                         <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
                     </div>
-                </div>
+                </form>
                 <div class="box">Container 2</div>
                 <div class="box">Container 3</div>
             </div>      
@@ -100,16 +98,22 @@
     
 </body>
 <script>
-    document.addEventListener('scroll', function() {
-        const boxes = document.querySelectorAll('.box');
-        boxes.forEach(box => {
-            const boxPosition = box.getBoundingClientRect().top;
-            const screenHeight = window.innerHeight;
-            if (boxPosition < screenHeight - 100) {
-                box.classList.add('show');
+    const options = {
+        root: null,
+        rootMargin: '0px 0px -60% 0px', // Adjust this to control when the animation starts
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
             }
         });
-    });
+    }, options);
+
+    const boxes = document.querySelectorAll('.box');
+    boxes.forEach(box => observer.observe(box));
 </script>
 </html>
 {{end}}

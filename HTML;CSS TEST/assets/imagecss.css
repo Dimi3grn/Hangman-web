@@ -1,0 +1,15 @@
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 50px); /* 6 columns, each 50px wide */
+  grid-template-rows: repeat(3, 166px); /* 3 rows, each 166px high */
+  width: 300px;
+  height: 500px; /* 3 rows * 166px height */
+}
+
+.square {
+  width: 50px;
+  height: 166px;
+  background-image: url('../../view/assets/img/r6-operators-list-alibi.avif');
+  background-size: 300px 500px; /* Image is resized to fit the entire grid */
+  background-repeat: no-repeat;
+}

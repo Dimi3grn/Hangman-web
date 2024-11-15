@@ -26,6 +26,7 @@ func main() {
 		Tries      int
 		AttWrods   []string
 		AttLetters []string
+		ImgPath    string
 	}
 	displayData := HangmanPage{}
 	//Page D'accueil
@@ -50,8 +51,9 @@ func main() {
 
 		fmt.Fprintln(os.Stdout, hangman.InitializeDisplay(hiddenWord))
 
-		displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}}
+		displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif"}
 		fmt.Fprintln(os.Stdout, hiddenWord)
+		fmt.Fprintln(os.Stdout, displayData.ImgPath)
 
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 
