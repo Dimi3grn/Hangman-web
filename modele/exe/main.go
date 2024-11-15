@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	temp, err := template.ParseGlob("./../../view/template/*.html")
+	temp, err := template.ParseGlob("./view/template/*.html")
 	if err != nil {
 		fmt.Println(fmt.Sprint("erreur %s", err.Error()))
 		return
@@ -33,10 +33,16 @@ func main() {
 		fmt.Fprintln(os.Stdout, "Landing Page")
 		temp.ExecuteTemplate(w, "landing", nil)
 	})
+
+	http.HandleFunc("/landingPage2", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Landing Page 2")
+		temp.ExecuteTemplate(w, "landing2", nil)
+	})
+
 	//Choisir le thème du mot
 	http.HandleFunc("/landingPage/treatment", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(os.Stdout, "Landing Page Treatment")
-		fileName := "./../../mots/halloween.txt"
+		fileName := "Defenders.txt"
 		wordsArr := hangman.ReadWordsFromFile(fileName)
 		fmt.Fprintln(os.Stdout, wordsArr)
 		hiddenWord := hangman.SelectRandomWord(wordsArr)
@@ -68,8 +74,8 @@ func main() {
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 	})
 	fmt.Fprintln(os.Stdout, "Serveur démarré sur http://localhost:8080")
-	fileServer := http.FileServer(http.Dir("./../../view/assets"))
+	fileServer := http.FileServer(http.Dir("./view/assets"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
-	http.ListenAndServe("localhost:8080", nil)
+	http.ListenAndServe("localhost:8085", nil)
 
 }

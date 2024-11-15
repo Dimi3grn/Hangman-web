@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Pop-Up Effect</title>
+    <link rel="stylesheet" href="./assets/gamemodetest.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="box">Container 1</div>
+        <div class="box">Container 2</div>
+        <div class="box">Container 3</div>
+    </div>
+    
+</body>
+<script>
+    document.addEventListener('scroll', function() {
+        const boxes = document.querySelectorAll('.box');
+        boxes.forEach(box => {
+            const boxPosition = box.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight;
+            if (boxPosition < screenHeight - 100) {
+                box.classList.add('show');
+            }
+        });
+    });
+</script>
+</html>

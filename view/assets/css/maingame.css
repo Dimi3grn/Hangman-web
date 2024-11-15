@@ -117,6 +117,8 @@ button:hover {
     user-select: none; /* Empêche la sélection de texte */
     background-color: #f9f9f9; /* Couleur de fond des touches */
     transition: background-color 0.2s; /* Effet de transition */
+    display: inline-block;
+    vertical-align: middle
 }
 .key:hover {
     background-color: #e0e0e0; /* Couleur au survol */
@@ -126,6 +128,5 @@ button:hover {
     margin: 20px 0;
     text-align: center; /* Centrer l'affichage */
 }
-.row1 {
-    display: contents; /* Permet d'organiser les touches en rangées */
-}
+
+
