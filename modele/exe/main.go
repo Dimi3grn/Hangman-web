@@ -27,6 +27,7 @@ func main() {
 		AttWrods   []string
 		AttLetters []string
 		ImgPath    string
+		IsSolved   bool
 	}
 	displayData := HangmanPage{}
 	//Page D'accueil
@@ -42,6 +43,7 @@ func main() {
 
 	//Choisir le thème du mot
 	http.HandleFunc("/landingPage/treatment", func(w http.ResponseWriter, r *http.Request) {
+
 		fmt.Fprintln(os.Stdout, "Landing Page Treatment")
 		fileName := "Defenders.txt"
 		wordsArr := hangman.ReadWordsFromFile(fileName)
@@ -51,7 +53,7 @@ func main() {
 
 		fmt.Fprintln(os.Stdout, hangman.InitializeDisplay(hiddenWord))
 
-		displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif"}
+		displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif", false}
 		fmt.Fprintln(os.Stdout, hiddenWord)
 		fmt.Fprintln(os.Stdout, displayData.ImgPath)
 
@@ -61,6 +63,7 @@ func main() {
 
 	// Page de Jeux
 	http.HandleFunc("/hangman/mainGame", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-store")
 		fmt.Fprintln(os.Stdout, "Main Game")
 
 		fmt.Fprintln(os.Stdout, displayData.MotCache)
@@ -68,14 +71,16 @@ func main() {
 	})
 
 	http.HandleFunc("/hangman/treatment", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-store")
 		fmt.Fprintln(os.Stdout, "Treatment")
 
-		displayData.Display, displayData.Tries = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries)
+		displayData.Display, displayData.Tries, displayData.IsSolved = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries, displayData.IsSolved)
 		fmt.Fprintln(os.Stdout, displayData.Display)
 		fmt.Fprintln(os.Stdout, displayData.Tries)
+		fmt.Fprintln(os.Stdout, displayData.IsSolved)
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 	})
-	fmt.Fprintln(os.Stdout, "Serveur démarré sur http://localhost:8080")
+	fmt.Fprintln(os.Stdout, "Serveur démarré sur http://localhost:8085")
 	fileServer := http.FileServer(http.Dir("./view/assets"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 	http.ListenAndServe("localhost:8085", nil)

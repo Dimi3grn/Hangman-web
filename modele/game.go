@@ -107,7 +107,7 @@ func UpdateDisplay(hiddenWord string, display []rune, option string) bool {
 	return correctGuess // Renvoie true si la lettre est correcte
 }
 
-func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int) (string, int) {
+func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int, isCompleted bool) (string, int, bool) {
 	// Vérifier si l'utilisateur a proposé un mot entier
 	if len(option) > 1 {
 		if contains(*attemptedWords, option) {
@@ -132,7 +132,7 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 	// Vérifier si la lettre a déjà été tentée
 	if contains(*attemptedLetters, option) {
 		fmt.Println("Vous avez déjà choisi cette lettre, essayez-en une autre.")
-		return display, tries // retourner les valeurs sans les modifier
+		return display, tries, isCompleted // retourner les valeurs sans les modifier
 	}
 
 	// Ajouter la lettre à la liste des lettres tentées
@@ -157,9 +157,10 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 
 	if CheckComp(displayRunes) == false {
 		fmt.Println("Vous avez deviné le mot, bien joué à vous !")
+		isCompleted = true
 	} else if tries == 0 {
 		fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
 	}
 
-	return display, tries // retourner les valeurs mises à jour
+	return display, tries, isCompleted // retourner les valeurs mises à jour
 }

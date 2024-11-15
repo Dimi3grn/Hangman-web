@@ -226,6 +226,7 @@ ul, li {
 */
 
 .Page_Container{
+    position: relative;
     margin-top: 10%;
     display: flex;
     flex-direction: column;
@@ -399,3 +400,45 @@ ul, li {
     font-size: 18px; /* Optional: reduces the font size */
     transition: all 0.3s ease;
 }
+
+.bullets{
+    position: absolute;
+    left: 50%;
+    transform: translate(170%, 50%);
+    height: 350px;
+    width: 100px;
+    
+}
+
+
+.bullet {
+    position: absolute;
+    width: 100px; /* Adjust the width of each bullet */
+    height: 100px; /* Adjust the height of each bullet */
+    transform: rotate(90deg);
+}
+  
+  .bullet:nth-child(1) {
+    top: 0;
+  }
+  
+  .bullet:nth-child(2) {
+    top: 50px; /* Adjust the space between bullets */
+  }
+  
+  .bullet:nth-child(3) {
+    top: 100px;
+  }
+  
+  .bullet:nth-child(4) {
+    top: 150px;
+  }
+  
+  .bullet:nth-child(5) {
+    top: 200px;
+  }
+  
+  .bullet:nth-child(6) {
+    top: 250px;
+  }
+  

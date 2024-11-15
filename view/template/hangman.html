@@ -62,27 +62,151 @@
 
                 <div class="imageContainer">
                     <div class="image-grid" >
-                        <div class="square" style="background-position: 0 0; background-image: url('{{.ImgPath}}');"></div>
-                        <div class="square" style="background-position: -50px 0;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -100px 0;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -150px 0;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -200px 0;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -250px 0;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: 0 -166px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -50px -166px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -100px -166px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -150px -166px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -200px -166px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -250px -166px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: 0 -333px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -50px -333px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -100px -333px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -150px -333px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -200px -333px;  background-image: url('{{.ImgPath}}')"></div>
-                        <div class="square" style="background-position: -250px -333px;  background-image: url('{{.ImgPath}}')"></div>
+                        {{if or (lt .Tries 5) .IsSolved}}
+                            <div class="square" style="background-position: 0 0; background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: 0 0; background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 2) .IsSolved}}
+                            <div class="square" style="background-position: -50px 0;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -50px 0;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 4) .IsSolved}}
+                            <div class="square" style="background-position: -100px 0;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -100px 0;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 6) .IsSolved}}
+                            <div class="square" style="background-position: -150px 0;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -150px 0;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 3) .IsSolved}}
+                            <div class="square" style="background-position: -200px 0;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -200px 0;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 5) .IsSolved}}
+                            <div class="square" style="background-position: -250px 0;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -250px 0;  background-image: url('{{.ImgPath}}'); opacity: 0;" ></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 2) .IsSolved}}
+                            <div class="square" style="background-position: 0 -166px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: 0 -166px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        
+                        {{if or (lt .Tries 6) .IsSolved}}
+                            <div class="square" style="background-position: -50px -166px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -50px -166px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 2) .IsSolved}}
+                            <div class="square" style="background-position: -100px -166px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -100px -166px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 3) .IsSolved}}
+                            <div class="square" style="background-position: -150px -166px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -150px -166px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 3) .IsSolved}}
+                            <div class="square" style="background-position: -200px -166px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -200px -166px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 1) .IsSolved}}
+                            <div class="square" style="background-position: -250px -166px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -250px -166px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 4) .IsSolved}}
+                            <div class="square" style="background-position: 0 -333px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: 0 -333px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+                      
+                        {{if or (lt .Tries 6) .IsSolved}}
+                            <div class="square" style="background-position: -50px -333px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -50px -333px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 3) .IsSolved}}
+                            <div class="square" style="background-position: -100px -333px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -100px -333px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 1) .IsSolved}}
+                            <div class="square" style="background-position: -150px -333px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -150px -333px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 4) .IsSolved}}
+                            <div class="square" style="background-position: -200px -333px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -200px -333px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}}
+
+                        {{if or (lt .Tries 1) .IsSolved}}
+                            <div class="square" style="background-position: -250px -333px;  background-image: url('{{.ImgPath}}');"></div>
+                        {{else}}
+                            <div class="square" style="background-position: -250px -333px;  background-image: url('{{.ImgPath}}'); opacity: 0;"></div>
+                        {{end}} 
                     </div>
                 </div>
 
+
+                <div class="bullets">
+                    {{if le .Tries 5}}
+                        <img class="bullet" src="/static/svg/bulletBlack.svg" alt="bulletBlack" >
+                    {{else}}
+                        <img class="bullet" src="/static/svg/bulletWhite.svg" alt="bulletBlack" >
+                    {{end}}
+                    {{if le .Tries 4}}
+                        <img class="bullet" src="/static/svg/bulletBlack.svg" alt="bulletBlack" >
+                    {{else}}
+                        <img class="bullet" src="/static/svg/bulletWhite.svg" alt="bulletBlack" >
+                    {{end}}
+                    {{if le .Tries 3}}
+                        <img class="bullet" src="/static/svg/bulletBlack.svg" alt="bulletBlack" >
+                    {{else}}
+                        <img class="bullet" src="/static/svg/bulletWhite.svg" alt="bulletBlack" >
+                    {{end}}
+                    {{if le .Tries 2}}
+                        <img class="bullet" src="/static/svg/bulletBlack.svg" alt="bulletBlack" >
+                    {{else}}
+                        <img class="bullet" src="/static/svg/bulletWhite.svg" alt="bulletBlack" >
+                    {{end}}
+                    {{if le .Tries 1}}
+                        <img class="bullet" src="/static/svg/bulletBlack.svg" alt="bulletBlack" >
+                    {{else}}
+                        <img class="bullet" src="/static/svg/bulletWhite.svg" alt="bulletBlack" >
+                    {{end}}
+                    {{if le .Tries 0}}
+                        <img class="bullet" src="/static/svg/bulletBlack.svg" alt="bulletBlack" >
+                    {{else}}
+                        <img class="bullet" src="/static/svg/bulletWhite.svg" alt="bulletBlack" >
+                    {{end}}
+                    
+                </div>
 
 
 
@@ -92,7 +216,7 @@
                     <p id= "mot" class="Hword">{{.Display}}</p>
         
             
-                    <form action="/hangman/treatment" class="InputContainer">
+                    <form  id="hangmanForm" action="/hangman/treatment" class="InputContainer" method="post">
                         
                         <div class="form-container">
                             <div class="input-container">
@@ -105,6 +229,7 @@
                         
                     </form>
                 </div>
+                
             </div>
             
             
@@ -117,5 +242,15 @@
 
     
 </body>
+<script>
+    window.onload = function() {
+        history.pushState(null, null, location.href);
+    };
+
+    window.addEventListener("popstate", function(e) {
+        window.location.replace("/landingPage");
+    });
+</script>
+
 </html>
 {{end}}
