@@ -152,11 +152,6 @@ button {
     z-index: 1000;
 }
 
-.popup-content {
-    font-size: 16px;
-}
-
-/* Overlay to detect clicks outside the popup */
 .overlay {
     position: fixed;
     top: 0;
@@ -167,6 +162,59 @@ button {
     display: none;
     z-index: 999;
 }
+
+.form-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+
+.tab-button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+
+
+.popup-content {
+    display: none;
+    font-size: 16px;
+}
+
+.form-content.active {
+    display: block;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+  
+.login-form,button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.pfp{
+    background:none;
+}
+
+
+
+/* Overlay to detect clicks outside the popup */
+
 .circle{
     height: 2rem;
     border-radius: 50%;

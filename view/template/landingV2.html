@@ -56,14 +56,29 @@
                {{if not .LoggedIn}}
                <div class="overlay" onclick="closePopup()" style="display: block;"></div>
                <div class="popup" id="popup" style="display: block;">
-                    <div class="popup-content">
+                    <div class="form-tabs">
+                        <button class="tab-button active" onclick="switchForm('login')">Login</button>
+                        <button class="tab-button" onclick="switchForm('signup')">Sign Up</button>
+                    </div>
+
+                    <div id="login-form" class="popup-content">
                         <form action="/login/treatment">
                             <input class="InputButton Username" type="text" name="login" id="login" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" placeholder="Username" required>
                             <input class="InputButton Password" type="password" name="password" id="password" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" placeholder="Password" required>
-                            <button class="PressButton" type="submit">Login</button>
+                            <button class="PressButton" type="submit">Log In</button>
+                        </form>
+                    </div>
+
+                    <div id="signup-form" class="popup-content" style="display:none;">
+                        <form action="/signup/treatment">
+                            <input class="InputButton Username" type="text" name="login" id="login" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" placeholder="Username" required>
+                            <input class="InputButton Password" type="password" name="password" id="password" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" placeholder="Password" required>
+                            <button class="PressButton" type="submit">Sign Up</button>
                         </form>
                     </div>
                 </div>
+
+
                 {{else}}
                 <div class="overlay" onclick="closePopup()" style="display: none;"></div>
                 <div class="popup" id="popup" style="display: none;">

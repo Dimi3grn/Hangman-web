@@ -48,6 +48,16 @@ func main() {
 		temp.ExecuteTemplate(w, "landing", PageData)
 	})
 
+	http.HandleFunc("/signup/treatment", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Login Treatment")
+		login := r.FormValue("login")
+		password := r.FormValue("password")
+		fmt.Fprintln(os.Stdout, login)
+		fmt.Fprintln(os.Stdout, password)
+		hangman.WriteCredentials(login, password)
+		http.Redirect(w, r, "/landingPage", http.StatusSeeOther)
+	})
+
 	http.HandleFunc("/login/treatment", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(os.Stdout, "Login Treatment")
 		login := r.FormValue("login")
