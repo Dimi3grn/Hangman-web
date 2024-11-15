@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/tabs.css">
+</head>
+<body>
+    <div class="form-container">
+        <!-- Categories for login and sign-in -->
+        <div class="form-tabs">
+          <button class="tab-button active" onclick="switchForm('login')">Login</button>
+          <button class="tab-button" onclick="switchForm('signup')">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="login-form" class="form-content">
+          <h2>Login</h2>
+          <form>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+          </form>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div id="signup-form" class="form-content" style="display:none;">
+          <h2>Sign Up</h2>
+          <form>
+            <input type="text" placeholder="Username" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+      
+</body>
+<script src="./assets/tabs.js"></script>
+</html>

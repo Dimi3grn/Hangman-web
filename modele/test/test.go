@@ -38,7 +38,7 @@ func main() {
 		handleThemeSelection(w, r, "summer.txt")
 	})
 	http.HandleFunc("/hangman/mainGame", mainGameHandler)
-	http.HandleFunc("/hangman/treatment", treatmentHandler)
+	//http.HandleFunc("/hangman/treatment", treatmentHandler)
 
 	// Servir les fichiers statiques
 	fileServer := http.FileServer(http.Dir("./../../view/assets"))
@@ -89,6 +89,7 @@ func mainGameHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // Traitement du jeu
+/*
 func treatmentHandler(w http.ResponseWriter, r *http.Request) {
 	mot := r.FormValue("mot")
 	displayData.Display, displayData.Tries = hangman.Verify(
@@ -103,3 +104,4 @@ func treatmentHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Mot affiché : %s, Essais restants : %d", displayData.Display, displayData.Tries)
 	http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 }
+*/

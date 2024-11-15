@@ -21,43 +21,73 @@ func main() {
 	}
 
 	type HangmanPage struct {
-		MotCache   string
-		Display    string
-		Tries      int
-		AttWrods   []string
-		AttLetters []string
-		ImgPath    string
-		IsSolved   bool
+		MotCache       string
+		Display        string
+		Tries          int
+		AttWrods       []string
+		AttLetters     []string
+		ImgPath        string
+		IsSolved       bool
+		DisplayMessage string
 	}
+
+	type LogPage struct {
+		PageMessage string
+		LoggedIn    bool
+	}
+
+	PageData := LogPage{}
 	displayData := HangmanPage{}
+
+	PageData = LogPage{PageMessage: "", LoggedIn: false}
+
 	//Page D'accueil
 	http.HandleFunc("/landingPage", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(os.Stdout, "Landing Page")
-		temp.ExecuteTemplate(w, "landing", nil)
+
+		temp.ExecuteTemplate(w, "landing", PageData)
 	})
 
-	http.HandleFunc("/landingPage2", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(os.Stdout, "Landing Page 2")
-		temp.ExecuteTemplate(w, "landing2", nil)
+	http.HandleFunc("/login/treatment", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Login Treatment")
+		login := r.FormValue("login")
+		password := r.FormValue("password")
+		fmt.Fprintln(os.Stdout, login)
+		fmt.Fprintln(os.Stdout, password)
+		if hangman.VerifyCredentials(login, password) {
+			PageData.LoggedIn = true
+			PageData.PageMessage = "Login Success"
+			fmt.Fprintln(os.Stdout, "Login Success")
+		} else {
+			PageData.LoggedIn = false
+			PageData.PageMessage = "Login Failed"
+			fmt.Fprintln(os.Stdout, "Login Failed")
+		}
+
+		http.Redirect(w, r, "/landingPage", http.StatusSeeOther)
 	})
 
 	//Choisir le thème du mot
 	http.HandleFunc("/landingPage/treatment", func(w http.ResponseWriter, r *http.Request) {
+		if !PageData.LoggedIn {
+			PageData.PageMessage = "Login required to play"
+			http.Redirect(w, r, "/landingPage", http.StatusSeeOther)
+		} else {
+			fmt.Fprintln(os.Stdout, "Landing Page Treatment")
+			fileName := "Defenders.txt"
+			wordsArr := hangman.ReadWordsFromFile(fileName)
+			fmt.Fprintln(os.Stdout, wordsArr)
+			hiddenWord := hangman.SelectRandomWord(wordsArr)
+			fmt.Fprintln(os.Stdout, hiddenWord)
 
-		fmt.Fprintln(os.Stdout, "Landing Page Treatment")
-		fileName := "Defenders.txt"
-		wordsArr := hangman.ReadWordsFromFile(fileName)
-		fmt.Fprintln(os.Stdout, wordsArr)
-		hiddenWord := hangman.SelectRandomWord(wordsArr)
-		fmt.Fprintln(os.Stdout, hiddenWord)
+			fmt.Fprintln(os.Stdout, hangman.InitializeDisplay(hiddenWord))
 
-		fmt.Fprintln(os.Stdout, hangman.InitializeDisplay(hiddenWord))
+			displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif", false, ""}
+			fmt.Fprintln(os.Stdout, hiddenWord)
+			fmt.Fprintln(os.Stdout, displayData.ImgPath)
 
-		displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif", false}
-		fmt.Fprintln(os.Stdout, hiddenWord)
-		fmt.Fprintln(os.Stdout, displayData.ImgPath)
-
-		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
+			http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
+		}
 
 	})
 
@@ -74,7 +104,7 @@ func main() {
 		w.Header().Set("Cache-Control", "no-store")
 		fmt.Fprintln(os.Stdout, "Treatment")
 
-		displayData.Display, displayData.Tries, displayData.IsSolved = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries, displayData.IsSolved)
+		displayData.Display, displayData.Tries, displayData.IsSolved, displayData.DisplayMessage = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries, displayData.IsSolved)
 		fmt.Fprintln(os.Stdout, displayData.Display)
 		fmt.Fprintln(os.Stdout, displayData.Tries)
 		fmt.Fprintln(os.Stdout, displayData.IsSolved)

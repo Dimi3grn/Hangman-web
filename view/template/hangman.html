@@ -20,7 +20,7 @@
             <nav class="popupMenu">
 
                 <ul class="menu_container">
-                    <li class="menu_drawer"><b>JOUER</b></li>
+                    <li class="menu_drawer" onclick= "window.location.href='/landingPage'"><b>ACCEUIL</b></li>
                     <li class="menu_drawer"><b>ACHETER</b></li>
                     <li class="menu_drawer"><b>EXPLORER</b></li>
                     <li class="menu_drawer"><b>AIDE</b></li>
@@ -223,13 +223,23 @@
                                 <input class="InputButton" type="text" name="mot" id="mot" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" required>
                                 <label for="mot" class="floating-label">Votre saisie</label> 
                             </div>
+                            {{if or (eq .Tries 0) .IsSolved}}
+                                <button class="PressButton" onclick= "window.location.href='/landingPage'">Retourner au Menu</button>
+                            {{else}}
+                                <button class="PressButton" type="submit">Valider</button>
+                            {{end}}
                             
-                            <button class="PressButton" type="submit">Valider</button>
                         </div>
                         
                     </form>
                 </div>
+                <div class="outComeMessage" id="outcome">
+                    <p class="theMessage">{{.DisplayMessage}}</p>
+                </div>
                 
+
+
+
             </div>
             
             
@@ -238,9 +248,19 @@
         </div>
         
     </div>
-
-
     
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const outcome = document.querySelector('.outComeMessage');
+            const message = outcome.querySelector('.theMessage').textContent.trim();
+        
+            // Si le message n'est pas vide, on affiche l'animation
+            if (message !== "") {
+                outcome.classList.add('show');
+            }
+        });
+    </script>
 </body>
 <script>
     window.onload = function() {

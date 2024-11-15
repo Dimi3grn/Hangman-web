@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/css/landingV2.css">
 </head>
 <body>
+    
     <header class="Header">
         <div class="mainHead">
             <div class="UbiConnect">
@@ -20,7 +21,7 @@
             <nav class="popupMenu">
 
                 <ul class="menu_container">
-                    <li class="menu_drawer"><b>JOUER</b></li>
+                    <li class="menu_drawer"><b>ACCEUIL</b></li>
                     <li class="menu_drawer"><b>ACHETER</b></li>
                     <li class="menu_drawer"><b>EXPLORER</b></li>
                     <li class="menu_drawer"><b>AIDE</b></li>
@@ -45,12 +46,38 @@
                     <path d='M8.487 16.59a5.65 5.65 0 0 0-1.233-.138c-2.444 0-4.91 1.625-4.91 4.178 0 .256.206.464.46.464h4.403a6.194 6.194 0 0 1 1.28-4.504ZM22.656 20.436a.658.658 0 0 1-.658.658H8.873v-.659c0-3.62 3.46-5.924 6.891-5.924s6.892 2.32 6.892 5.925ZM7.046 9.026c-1.806 0-3.277 1.483-3.277 3.304 0 1.822 1.47 3.304 3.277 3.304 1.806 0 3.277-1.482 3.277-3.304 0-1.821-1.47-3.304-3.277-3.304ZM15.402 3.906c-2.6 0-4.715 2.052-4.715 4.571 0 2.52 2.116 4.572 4.715 4.572 2.599 0 4.715-2.052 4.715-4.572s-2.116-4.57-4.715-4.57Z' fill='%23F2F2F2' transform="translate(5, 6)"/>
                 </svg>
                </div>
-               <div class="pfp">
+               <button class="pfp open-popup-btn" onclick="openPopup()" >
                     <div class="circle">
                         <img src="/static/img/default_146_146.png" alt="profile picture">
                     </div>
                     
-               </div>
+               </button>
+               
+               {{if not .LoggedIn}}
+               <div class="overlay" onclick="closePopup()" style="display: block;"></div>
+               <div class="popup" id="popup" style="display: block;">
+                    <div class="popup-content">
+                        <form action="/login/treatment">
+                            <input class="InputButton Username" type="text" name="login" id="login" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" placeholder="Username" required>
+                            <input class="InputButton Password" type="password" name="password" id="password" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" placeholder="Password" required>
+                            <button class="PressButton" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+                {{else}}
+                <div class="overlay" onclick="closePopup()" style="display: none;"></div>
+                <div class="popup" id="popup" style="display: none;">
+                     <div class="popup-content">
+                        <div>
+                            Already logged in
+                        </div>
+                     </div>
+                </div>
+                {{end}}
+               
+                
+              </div>
+              
             </div>
         </div>
     </header>
@@ -81,7 +108,11 @@
             <div class="container">
                 <form action="/landingPage/treatment" method="POST" class="box" onclick="this.submit();">
                     <div class="ScrollTitle">
-                        <button class="ScrollTitle Dumbahhhbutton">Défenseurs</button>
+                        {{if .LoggedIn}}
+                            <button class="ScrollTitle Dumbahhhbutton">Défenseurs</button>
+                        {{else}}
+                            <button class="ScrollTitle Dumbahhhbutton">Veuillez vous inscrire</button>
+                        {{end}}
                     </div>
                     <div class="image-wrapper">
                         <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
@@ -90,12 +121,26 @@
                 </form>
                 <div class="box">Container 2</div>
                 <div class="box">Container 3</div>
-            </div>      
+            </div>   
+            <div class="outComeMessage" id="outcome">
+                <p class="theMessage">{{.PageMessage}}</p>
+            </div>   
         </div>
         
     </div>
 
-    
+    <script src="/static/js/landing.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const outcome = document.querySelector('.outComeMessage');
+            const message = outcome.querySelector('.theMessage').textContent.trim();
+        
+            // Si le message n'est pas vide, on affiche l'animation
+            if (message !== "") {
+                outcome.classList.add('show');
+            }
+        });
+    </script>
 </body>
 <script>
     const options = {

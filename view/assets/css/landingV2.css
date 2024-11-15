@@ -115,13 +115,58 @@ ul, li {
     align-items: center;
 }
 
+button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    display: inline-block; 
+}
+
 .pfp{
+    opacity: 1;
     margin-left: 25px;
     display: flex;
     align-items: center;
     
 }
 
+.pfp:hover {
+    cursor: pointer;
+}
+
+
+
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 5vh;
+    left: 75vw;
+    width: 250px;
+    height: 350px;
+    padding: 20px;
+    background-color: #080808;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.popup-content {
+    font-size: 16px;
+}
+
+/* Overlay to detect clicks outside the popup */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
 .circle{
     height: 2rem;
     border-radius: 50%;
@@ -434,4 +479,119 @@ h2 {
     .Download {
         margin-left: 3vw;
     }
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* Full black background */
+    z-index: 1000; /* Make sure it covers the whole screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.InputButton{
+    margin-top: 25px;
+    width: 200px; 
+    height: 40px; 
+    font-family: UbiFont, sans-serif; 
+    font-size: 30px;
+    letter-spacing: 1px;
+    padding-left: 40px;
+    background-color: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.Password{
+    margin-top: 30px;
+}
+
+.PressButton {
+    margin-top: 25px;
+    height: 43px;
+    width: 250px; /* Adjusted for better readability */
+    background-color: #2499ff;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.PressButton:focus,
+.PressButton:active {
+    outline: none;
+}
+
+.PressButton:hover {
+    transform: scale(1.05);
+}
+
+.PressButton::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 80%);
+    transition: height 0.4s ease-in-out;
+    z-index: 1;
+}
+
+.PressButton:hover span {
+    transform: scale(1.33);
+    transition: transform 0.3s ease;
+}
+
+.PressButton:hover::before {
+    height: 100%;
+}
+
+.PressButton span {
+    z-index: 2;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+
+.outComeMessage {
+    background-color: grey;
+    color: #e6b800;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(325%, -1100%);
+    width: 165px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    border-right: #e6b800 2px solid;
+    z-index: 3;
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+/* Classe pour l'animation */
+.outComeMessage.show {
+    transform: translate(275%, -1100%);
+    opacity: 1;
+}
+
+.theMessage {
+    padding-right: 5px;
+    font-size: smaller;
 }

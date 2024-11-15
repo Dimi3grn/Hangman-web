@@ -42,7 +42,7 @@ func PlayGame(hiddenWord string, display []rune) {
 				tries -= 2
 				attemptedWords = append(attemptedWords, option)
 				if tries <= 0 {
-					fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
+					fmt.Println("Tentatives épuisées. Le mot était : ", hiddenWord)
 					break
 				}
 				fmt.Println("Mauvaise proposition ! Deux tentatives en moins.")
@@ -55,7 +55,7 @@ func PlayGame(hiddenWord string, display []rune) {
 		// Vérifier si la lettre a déjà été tentée
 		if contains(attemptedLetters, option) {
 			Clear()
-			fmt.Println("Vous avez déjà choisi cette lettre, essayez-en une autre.")
+			fmt.Println("Lettre déjà tentée.")
 			fmt.Println("Le mot à deviner a", len(hiddenWord), "lettres.")
 			fmt.Println("Affichage actuel :", string(display)) // Afficher l'affichage initial
 			continue                                           // Ne pas réduire le nombre d'essais
@@ -80,7 +80,7 @@ func PlayGame(hiddenWord string, display []rune) {
 			fmt.Println("Vous avez deviné le mot, bien joué à vous !")
 			// On ne vérifie pas ici, car le CheckComp doit s'occuper de l'affichage
 		} else if tries == 0 {
-			fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
+			fmt.Println("Tentatives épuisées. Le mot était :", hiddenWord)
 		}
 	}
 
@@ -107,32 +107,39 @@ func UpdateDisplay(hiddenWord string, display []rune, option string) bool {
 	return correctGuess // Renvoie true si la lettre est correcte
 }
 
-func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int, isCompleted bool) (string, int, bool) {
+func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int, isCompleted bool) (string, int, bool, string) {
+	outputMessage := "Lettre Incorrecte"
 	// Vérifier si l'utilisateur a proposé un mot entier
 	if len(option) > 1 {
 		if contains(*attemptedWords, option) {
 			Clear()
 			fmt.Println("Vous avez déjà proposé ce mot, essayez-en un autre.")
+			outputMessage = "Mot déjà tentée."
+			return display, tries, isCompleted, outputMessage
 		}
 		if option == hiddenWord {
 			// Si le mot est correct, on met à jour l'affichage et on termine le jeu
 			display = hiddenWord
 			fmt.Println("Vous avez deviné le mot, bien joué à vous !")
+			outputMessage = "Vous avez deviné le mot, bien joué à vous !"
 		} else {
 			// Si le mot est incorrect, retire deux essais
 			tries -= 2
 			*attemptedWords = append(*attemptedWords, option) // Utiliser le pointeur pour modifier la liste
 			if tries <= 0 {
-				fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
+				fmt.Println("Tentatives épuisées. Le mot était :", hiddenWord)
+				outputMessage = "Tentatives épuisées. Le mot était : " + hiddenWord
 			}
 			fmt.Println("Mauvaise proposition ! Deux tentatives en moins.")
+			outputMessage = "Mot Incorrect"
 		}
 	}
 
 	// Vérifier si la lettre a déjà été tentée
 	if contains(*attemptedLetters, option) {
 		fmt.Println("Vous avez déjà choisi cette lettre, essayez-en une autre.")
-		return display, tries, isCompleted // retourner les valeurs sans les modifier
+		outputMessage = "Lettre déjà tentée."
+		return display, tries, isCompleted, outputMessage // retourner les valeurs sans les modifier
 	}
 
 	// Ajouter la lettre à la liste des lettres tentées
@@ -145,6 +152,7 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 			displayRunes[k] = char // Modifier le rune à l'index correct
 			correctGuess = true
 			fmt.Fprintln(os.Stdout, "lettre devinée")
+			outputMessage = "lettre devinée"
 		}
 	}
 
@@ -157,10 +165,12 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 
 	if CheckComp(displayRunes) == false {
 		fmt.Println("Vous avez deviné le mot, bien joué à vous !")
+		outputMessage = "Vous avez deviné le mot, bien joué à vous !"
 		isCompleted = true
-	} else if tries == 0 {
+	} else if tries <= 0 {
 		fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
+		outputMessage = "Tentatives épuisées. Le mot était : " + hiddenWord
 	}
 
-	return display, tries, isCompleted // retourner les valeurs mises à jour
+	return display, tries, isCompleted, outputMessage // retourner les valeurs mises à jour
 }
