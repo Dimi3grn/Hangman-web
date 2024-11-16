@@ -186,7 +186,7 @@ button {
 
 .popup-content {
     display: none;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .form-content.active {
@@ -546,9 +546,9 @@ h2 {
 .InputButton{
     margin-top: 25px;
     width: 200px; 
-    height: 40px; 
+    height: 30px; 
     font-family: UbiFont, sans-serif; 
-    font-size: 30px;
+    font-size: 24px;
     letter-spacing: 1px;
     padding-left: 40px;
     background-color: white;
@@ -619,27 +619,32 @@ h2 {
     color: #e6b800;
     position: absolute;
     left: 50%;
-    top: 30%;
-    transform: translate(325%, -1100%);
+    top: 50%;
+    transform: translate(-450%, -1850%);
     width: 165px;
     height: 45px;
     display: flex;
     align-items: center;
-    justify-content: end;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-    border-right: #e6b800 2px solid;
-    z-index: 3;
+    justify-content:baseline;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    border-left: #e6b800 2px solid;
+    z-index: 5;
     opacity: 0;
     transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 
 /* Classe pour l'animation */
+
+
 .outComeMessage.show {
-    transform: translate(275%, -1100%);
+    transform: translate(-400%, -1850%);
     opacity: 1;
+    z-index: 5;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 
+
 .theMessage {
-    padding-right: 5px;
+    padding-left: 10px;
     font-size: smaller;
 }

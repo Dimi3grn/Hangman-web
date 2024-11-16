@@ -21,7 +21,7 @@
 
                 <ul class="menu_container">
                     <li class="menu_drawer" onclick= "window.location.href='/landingPage'"><b>ACCEUIL</b></li>
-                    <li class="menu_drawer"><b>ACHETER</b></li>
+                    <li class="menu_drawer" onclick= "window.location.href='/leaderboards'"><b>SCORES</b></li>
                     <li class="menu_drawer"><b>EXPLORER</b></li>
                     <li class="menu_drawer"><b>AIDE</b></li>
                 </ul>
@@ -219,10 +219,12 @@
                     <form  id="hangmanForm" action="/hangman/treatment" class="InputContainer" method="post">
                         
                         <div class="form-container">
+                            {{if not (eq .Tries 0)}}
                             <div class="input-container">
                                 <input class="InputButton" type="text" name="mot" id="mot" autocomplete="off" id="mot" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" required>
                                 <label for="mot" class="floating-label">Votre saisie</label> 
                             </div>
+                            {{end}}
                             {{if or (eq .Tries 0) .IsSolved}}
                                 <button class="PressButton" onclick= "window.location.href='/landingPage'">Retourner au Menu</button>
                             {{else}}
@@ -232,6 +234,21 @@
                         </div>
                         
                     </form>
+
+                    {{if .IsSolved}}    
+                        <div id="EndWindow" class="EndWindow" onclick="closePopup()">
+                            <div class="EndBox">
+                                <div class="EndWindow-content">
+                                    <p>{{.DisplayMessage}}</p>
+                                </div>
+                                <div class="button-container">
+                                    <button class="popup-btn" id="btn1">Rejouer</button>
+                                    <button class="popup-btn" id="btn2">Retour à l'accueil</button>
+                                </div>
+                            </div>
+                      </div>
+                    {{end}}
+
                 </div>
                 <div class="outComeMessage" id="outcome">
                     <p class="theMessage">{{.DisplayMessage}}</p>
@@ -248,8 +265,14 @@
         </div>
         
     </div>
-    
+    <script>
+        function closePopup() {
+            document.getElementById('EndBox').style.display = 'none';
+            document.querySelector('.EndWindow').style.display = 'none';
+        }
 
+    </script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const outcome = document.querySelector('.outComeMessage');

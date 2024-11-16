@@ -84,7 +84,8 @@ func main() {
 			http.Redirect(w, r, "/landingPage", http.StatusSeeOther)
 		} else {
 			fmt.Fprintln(os.Stdout, "Landing Page Treatment")
-			fileName := "Defenders.txt"
+
+			fileName := r.FormValue("formID") + ".txt"
 			wordsArr := hangman.ReadWordsFromFile(fileName)
 			fmt.Fprintln(os.Stdout, wordsArr)
 			hiddenWord := hangman.SelectRandomWord(wordsArr)
@@ -120,6 +121,7 @@ func main() {
 		fmt.Fprintln(os.Stdout, displayData.IsSolved)
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
 	})
+
 	fmt.Fprintln(os.Stdout, "Serveur démarré sur http://localhost:8085")
 	fileServer := http.FileServer(http.Dir("./view/assets"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))

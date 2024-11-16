@@ -21,8 +21,8 @@
             <nav class="popupMenu">
 
                 <ul class="menu_container">
-                    <li class="menu_drawer"><b>ACCEUIL</b></li>
-                    <li class="menu_drawer"><b>ACHETER</b></li>
+                    <li class="menu_drawer" onclick= "window.location.href='/landingPage'"><b>ACCEUIL</b></li>
+                    <li class="menu_drawer" onclick= "window.location.href='/leaderboards'"><b>SCORES</b></li>
                     <li class="menu_drawer"><b>EXPLORER</b></li>
                     <li class="menu_drawer"><b>AIDE</b></li>
                 </ul>
@@ -122,6 +122,7 @@
             </div>
             <div class="container">
                 <form action="/landingPage/treatment" method="POST" class="box" onclick="this.submit();">
+                    <input type="hidden" name="formID" value="Defenders">
                     <div class="ScrollTitle">
                         {{if .LoggedIn}}
                             <button class="ScrollTitle Dumbahhhbutton">Défenseurs</button>
@@ -134,8 +135,35 @@
                         <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
                     </div>
                 </form>
-                <div class="box">Container 2</div>
-                <div class="box">Container 3</div>
+
+
+                <form action="/landingPage/treatment" method="POST" class="box" onclick="this.submit();">
+                    <input type="hidden" name="formID" value="Attackers">
+                    <div class="ScrollTitle">
+                        {{if .LoggedIn}}
+                            <button class="ScrollTitle Dumbahhhbutton">Attaquants</button>
+                        {{else}}
+                            <button class="ScrollTitle Dumbahhhbutton">Veuillez vous inscrire</button>
+                        {{end}}
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
+                        <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
+                    </div>
+                </form>
+                <form action="/landingPage/treatment" method="POST" class="box" onclick="this.submit();">
+                    <div class="ScrollTitle">
+                        {{if .LoggedIn}}
+                            <button class="ScrollTitle Dumbahhhbutton">Cartes</button>
+                        {{else}}
+                            <button class="ScrollTitle Dumbahhhbutton">Veuillez vous inscrire</button>
+                        {{end}}
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
+                        <img src="/static/img/attackers.png" alt="attackers" class="scrolling-image">
+                    </div>
+                </form>
             </div>   
             <div class="outComeMessage" id="outcome">
                 <p class="theMessage">{{.PageMessage}}</p>

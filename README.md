@@ -1,17 +1,44 @@
-# Hangman WEB
-Le projet *Hangman Web* a pour objectif de rendre utilisable, le jeu Hangman (module précédente) via une interface graphique web. On devra intégrer la partie interface graphique avec des templates (HTML) et les styles (CSS). ET aussi l'implémentation d'un serveur HTTP avec plusieurs routes pour pouvoir distribuer les templates pour avoir une interface graphique.
+# Projet Web avec Go, HTML et CSS
 
-## Pour commencer
+## Description
+Ce projet est une application web développée en **Go**, utilisant des **templates HTML** et du **CSS** pour la présentation. L'application permet de gérer des pages comme **Landing**, **Hangman**, ainsi qu'une section pour afficher des informations sur les étudiants. Aucune bibliothèque JavaScript n'est utilisée, en restant fidèle à une approche basée uniquement sur Go, HTML, et CSS.
 
-### Pré-requis
-Pour lancer le programme, il faut d'abord trouvé le fichier principale : main.go, pour le lancer il faut mettre le chemain suivant : \Hangman-web\modele\exe puis execute main.go pour pouvoir lancer le jeu.
-Puis vous dirigez sur Chrome et saisir : http://localhost:8085/landingPage (page d'accueil).
+## Pré-requis
+Avant de lancer le projet, assurez-vous d'avoir installé :
+- **Go** (version 1.20 ou supérieure)
+- Un éditeur de texte ou un IDE (comme Visual Studio Code)
+- Un navigateur web moderne (comme Google Chrome ou Firefox)
 
-###
-Après avoir, démarrer le serveur et lancer le fichier main.go, vous allez dans un navigateur web (préférence chrome), veuillez saisir le serveur local avec la route indiqué ci-dessous sur la barre de lien. Vous allez être dirigés vers la page d'accueil en expliquant la règle du jeu Hangman, puis vous glissez en bas avec votre molette. Choississez votre catégorie de mot entre défenseurs, attaquant, map du jeu *_Tom Clancy's Rainbow Six Siege_*. 
-Ensuite vous serez dirigés vers la page de jeu avec un mot aléatoire dans la catégorie que vous avez choisis, et 1 ou 2 lettres sera affichée(s). A vous de jouez ! Bonne Chance !
+## Installation
+1. Clonez ce dépôt sur votre machine locale :
+    ```bash
+    git clone <url_du_dépôt>
+    cd <nom_du_dépôt>
+    ```
 
+2. Installez les dépendances Go :
+    ```bash
+    go mod tidy
+    ```
 
+3. Assurez-vous que la structure des dossiers est bien en place :
+    ```
+    .
+    ├── go.mod
+    ├── main.go
+    ├── template/
+    │   ├── index.html
+    │   ├── hangman.html
+    │   └── etudiants.html
+    ├── images/
+    │   ├── homme.png
+    │   └── femme.png
+    ├── static/
+    │   └── styles.css
+    └── README.md
+    ```
 
-
-
+## Lancement de l'application
+Pour lancer le serveur web en local, exécutez la commande suivante :
+```bash
+go run main.go
