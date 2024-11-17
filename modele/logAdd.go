@@ -21,7 +21,7 @@ func userExists(username string) (bool, error) {
 		line := scanner.Text()
 		// Vérifier si le nom d'utilisateur existe déjà
 		parts := strings.Split(line, " ")
-		if len(parts) == 2 && parts[0] == username {
+		if len(parts) == 3 && parts[0] == username {
 			return true, nil // Utilisateur trouvé
 		}
 	}
@@ -52,7 +52,7 @@ func WriteCredentials(username, password string) error {
 	defer file.Close()
 
 	// Écrire l'utilisateur et le mot de passe dans le fichier
-	_, err = fmt.Fprintf(file, "%s %s\n", username, password)
+	_, err = fmt.Fprintf(file, "%s %s %d\n", username, password, 0)
 	if err != nil {
 		return fmt.Errorf("erreur d'écriture dans le fichier: %v", err)
 	}

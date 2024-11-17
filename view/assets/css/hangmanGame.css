@@ -515,18 +515,27 @@ ul, li {
 }
 
 .EndWindow-content {
-    flex: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     color: #ffaa00;
     margin-bottom: 30px;
 
+}
+.finalImg{
+    width: 240px;
 }
 
 .button-container {
     display: flex;
     justify-content: center;
+    
     gap: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
+
 
 .popup-btn {
     width: 200px;
@@ -542,4 +551,35 @@ ul, li {
 
 .popup-btn:hover {
     background-color: #ffcc00;
+}
+
+.ptsMessg {
+    background-color: grey;
+    color: #e6b800;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(450%, -390%);
+    width: 165px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    border-right: #e6b800 2px solid;
+    z-index: 1;
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+
+.ptsMessg.show {
+    transform: translate(250%, -390%);
+    opacity: 1;
+    
+}
+
+.ptsAm {
+    padding-right: 5px;
+    font-size: smaller;
 }

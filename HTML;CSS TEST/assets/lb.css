@@ -1,0 +1,400 @@
+@font-face {
+    font-family: 'UbiFont';
+    src: url('../fonts/7c574ea662392ab39c09ed79280cf5b2.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+svg{
+    fill:white
+}
+
+body {
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: default;
+}
+
+ul, li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.Download{
+    margin-left: 12vw;
+}
+
+.Dload{
+    display: flex;
+    color: white;
+    text-decoration: none;
+    font-family: Ubisoft, sans-serif;
+    line-height: 1.25em;
+    height: 50px;
+    align-items: center;
+}
+
+.download-icon{
+    margin-left: 5px;
+}
+
+.Header{
+    background-color: black;
+    color: white;
+    width : 100%;
+    height : 3rem;
+
+}
+
+.mainHead{
+    display: flex;
+    margin-left: 60px;
+    margin-right: 60px;
+    height: 100%;
+}
+
+.UbiConnect{
+   align-self: center;
+}
+
+.icon-ubisoft-logo-desktop{
+    
+    height: 2em;
+    width: fit-content;
+    
+}
+
+.popupMenu{
+    display: inline-flex;
+    margin-left: 60px;
+    width : 35vw;
+    letter-spacing: 1px;
+}
+
+
+.menu_container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+    
+}
+
+.menu_drawer{
+    flex: 1;
+    text-align: center;
+    padding: 0.9em ;
+    cursor: pointer;
+}
+
+.menu_drawer:hover{
+    background-color: white;
+    color: black;
+}
+
+.UserTools{
+    display: flex;
+    margin-left: 8vw;
+}
+
+.notif{
+    width: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.pfp{
+    margin-left: 25px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.circle{
+    height: 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.circle img{
+    height   : 2rem;
+}
+
+@font-face {
+    font-family: "Ubisoft";
+    src: url("https://db.onlinewebfonts.com/t/75914226e45d53c888d99c55e1033690.eot");
+    src: url("https://db.onlinewebfonts.com/t/75914226e45d53c888d99c55e1033690.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/75914226e45d53c888d99c55e1033690.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/75914226e45d53c888d99c55e1033690.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/75914226e45d53c888d99c55e1033690.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/75914226e45d53c888d99c55e1033690.svg#Ubisoft Sans Bold")format("svg");
+}
+
+.r6presentation{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    
+}
+
+.imageFond{
+    
+    background-image: url("../img/r6s-gameinfo-discover-intro-bg\ \(1\).png");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%; 
+    position: relative;
+    overflow: hidden;
+}
+
+.imageFond::before, .videoBackground::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent, transparent 10%, rgba(1, 0, 19, 0.7));
+    
+    pointer-events: none;
+}
+
+
+.imageFond::before{
+    box-shadow: inset 0px -20px 20px 14px rgba(0, 0, 10, 0.893);
+}
+
+.videoBackground::before{
+    box-shadow: inset 0px 20px 20px 14px rgba(0, 0, 10, 0.893);
+}
+
+
+
+
+.imageText img{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 50%;
+    max-height: 50%;
+    z-index: 1;
+    
+
+}
+
+.subtitleMain{
+    color: #00ffe5;
+    font-family: UbiFont, sans-serif;
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-size: 55px;
+    text-transform: uppercase;
+    text-shadow: 0 0 2px #151d30, 0 0 2px #151d30, 0 0 2px #151d30;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.videoBackground {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.videoBackground video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Ensure the video is behind other content */
+}
+
+
+.r6presentation{
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    
+}
+
+.imageFond{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../img/back.jpg");
+    background-size: auto;
+    background-position: center;
+    background-repeat: repeat;
+    width: 100%;
+    height: 95vh; 
+    position: relative;
+    overflow: hidden;
+}
+
+.imageFond::before, .videoBackground::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent, transparent 10%, rgba(1, 0, 19, 0.7));
+    
+    pointer-events: none;
+}
+
+
+
+.mainlbCont{
+    background-color: black;
+    opacity: 0.7;
+    width: 700px;
+    height: 500px;
+    margin-bottom: 100px;
+    display: flex;
+}
+
+
+.leftSideImg{
+    background-color: blue;
+    width : 100px;
+    height: 100%;
+}
+
+.Players{
+    width:600px;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+
+.Player{
+    background-color: gray;
+    opacity: 0.8;
+    margin: 8px;
+    height: 100px;
+    width: 584px;
+    border: black 1px solid;
+    display: flex;
+    align-items: center;
+}
+
+.pos{
+    width: 10%;
+    height: 80%;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-family: Ubifont;
+    font-size: 40px;
+}
+
+
+.Name{
+    margin-left: 5px;
+    z-index: 5;
+    height: 80%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+
+.Name p{
+    font-family: Ubifont;
+    
+    font-size: 40px;
+    letter-spacing: 2px;
+    margin-left: 30px;
+    color: black;
+}
+
+.Score{
+    margin-right: 5px;
+    z-index: 5;
+    height: 80%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Score p{
+    font-family: Ubifont;
+    font-size: 40px;
+    letter-spacing: 2px;
+    margin-right: 30px;
+    color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1200px) {
+    .Download {
+        margin-left: 10vw;
+    }
+}
+
+@media (max-width: 992px) {
+    .Download {
+        margin-left: 8vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .Download {
+        margin-left: 5vw;
+    }
+
+    .Dload {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        font-size: 0.9em;
+    }
+
+    .Download {
+        margin-left: 3vw;
+    }
+}
+

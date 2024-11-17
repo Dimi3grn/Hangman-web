@@ -24,7 +24,7 @@ func VerifyCredentials(username, password string) bool {
 		line := scanner.Text()
 		// Split the line into username and password
 		parts := strings.Split(line, " ")
-		if len(parts) == 2 && parts[0] == username && parts[1] == password {
+		if len(parts) == 3 && parts[0] == username && parts[1] == password {
 			return true
 		}
 	}

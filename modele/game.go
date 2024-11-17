@@ -107,7 +107,8 @@ func UpdateDisplay(hiddenWord string, display []rune, option string) bool {
 	return correctGuess // Renvoie true si la lettre est correcte
 }
 
-func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int, isCompleted bool) (string, int, bool, string) {
+func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string, hiddenWord string, display string, tries int, isCompleted bool) (string, int, bool, string, int) {
+	Pts := 0
 	outputMessage := "Lettre Incorrecte"
 	// Vérifier si l'utilisateur a proposé un mot entier
 	if len(option) > 1 {
@@ -115,13 +116,14 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 			Clear()
 			fmt.Println("Vous avez déjà proposé ce mot, essayez-en un autre.")
 			outputMessage = "Mot déjà tentée."
-			return display, tries, isCompleted, outputMessage
+			return display, tries, isCompleted, outputMessage, 0
 		}
 		if option == hiddenWord {
 			// Si le mot est correct, on met à jour l'affichage et on termine le jeu
 			display = hiddenWord
 			fmt.Println("Vous avez deviné le mot, bien joué à vous !")
 			outputMessage = "Vous avez deviné le mot, bien joué à vous !"
+			Pts = 500
 		} else {
 			// Si le mot est incorrect, retire deux essais
 			tries -= 2
@@ -139,7 +141,7 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 	if contains(*attemptedLetters, option) {
 		fmt.Println("Vous avez déjà choisi cette lettre, essayez-en une autre.")
 		outputMessage = "Lettre déjà tentée."
-		return display, tries, isCompleted, outputMessage // retourner les valeurs sans les modifier
+		return display, tries, isCompleted, outputMessage, 0 // retourner les valeurs sans les modifier
 	}
 
 	// Ajouter la lettre à la liste des lettres tentées
@@ -153,6 +155,7 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 			correctGuess = true
 			fmt.Fprintln(os.Stdout, "lettre devinée")
 			outputMessage = "lettre devinée"
+			Pts = 50
 		}
 	}
 
@@ -166,11 +169,12 @@ func Verify(option string, attemptedWords *[]string, attemptedLetters *[]string,
 	if CheckComp(displayRunes) == false {
 		fmt.Println("Vous avez deviné le mot, bien joué à vous !")
 		outputMessage = "Vous avez deviné le mot, bien joué à vous !"
+		Pts = 500
 		isCompleted = true
 	} else if tries <= 0 {
 		fmt.Println("Dommage ! Vous avez épuisé vos tentatives. Le mot était :", hiddenWord)
 		outputMessage = "Tentatives épuisées. Le mot était : " + hiddenWord
 	}
 
-	return display, tries, isCompleted, outputMessage // retourner les valeurs mises à jour
+	return display, tries, isCompleted, outputMessage, Pts // retourner les valeurs mises à jour
 }

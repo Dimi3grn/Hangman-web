@@ -21,7 +21,7 @@
 
                 <ul class="menu_container">
                     <li class="menu_drawer" onclick= "window.location.href='/landingPage'"><b>ACCEUIL</b></li>
-                    <li class="menu_drawer" onclick= "window.location.href='/leaderboards'"><b>SCORES</b></li>
+                    <li class="menu_drawer" onclick= "window.location.href='/leaderboard'"><b>SCORES</b></li>
                     <li class="menu_drawer"><b>EXPLORER</b></li>
                     <li class="menu_drawer"><b>AIDE</b></li>
                 </ul>
@@ -239,11 +239,12 @@
                         <div id="EndWindow" class="EndWindow" onclick="closePopup()">
                             <div class="EndBox">
                                 <div class="EndWindow-content">
-                                    <p>{{.DisplayMessage}}</p>
+                                    <img src="{{.ImgPath}}" alt="OpImage" class="finalImg">
+                                    <p>Le mot était : {{.MotCache}}</p>
                                 </div>
                                 <div class="button-container">
-                                    <button class="popup-btn" id="btn1">Rejouer</button>
-                                    <button class="popup-btn" id="btn2">Retour à l'accueil</button>
+                                    <button class="popup-btn" id="btn1" onclick= "window.location.href='/leaderboard'">Scores</button>
+                                    <button class="popup-btn" id="btn2"onclick= "window.location.href='/landingPage'">Retour à l'accueil</button>
                                 </div>
                             </div>
                       </div>
@@ -252,6 +253,9 @@
                 </div>
                 <div class="outComeMessage" id="outcome">
                     <p class="theMessage">{{.DisplayMessage}}</p>
+                </div>
+                <div class="ptsMessg" id="pts">
+                    <p class="ptsAm">+{{.PointsWon}}</p>
                 </div>
                 
 
@@ -272,7 +276,6 @@
         }
 
     </script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const outcome = document.querySelector('.outComeMessage');
@@ -281,6 +284,19 @@
             // Si le message n'est pas vide, on affiche l'animation
             if (message !== "") {
                 outcome.classList.add('show');
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const outcome = document.querySelector('.ptsMessg');
+            const message = outcome.querySelector('.ptsAm').textContent.trim();
+        
+            // Si le message n'est pas vide, on affiche l'animation
+            if (message !== "+0") {
+                setTimeout(() => {
+                outcome.classList.add('show');
+            }, 500); // Délai de 1 seconde (1000ms)
             }
         });
     </script>

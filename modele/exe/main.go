@@ -29,17 +29,35 @@ func main() {
 		ImgPath        string
 		IsSolved       bool
 		DisplayMessage string
+		PointsWon      int
 	}
 
 	type LogPage struct {
 		PageMessage string
 		LoggedIn    bool
+		User        string
+	}
+
+	type Position struct {
+		Name  string
+		Score int
+	}
+
+	// Structure pour le leaderboard avec 7 positions
+	type Leaderboard struct {
+		Pos1 Position
+		Pos2 Position
+		Pos3 Position
+		Pos4 Position
+		Pos5 Position
+		Pos6 Position
+		Pos7 Position
 	}
 
 	PageData := LogPage{}
 	displayData := HangmanPage{}
 
-	PageData = LogPage{PageMessage: "", LoggedIn: false}
+	PageData = LogPage{PageMessage: "", LoggedIn: false, User: ""}
 
 	//Page D'accueil
 	http.HandleFunc("/landingPage", func(w http.ResponseWriter, r *http.Request) {
@@ -67,6 +85,7 @@ func main() {
 		if hangman.VerifyCredentials(login, password) {
 			PageData.LoggedIn = true
 			PageData.PageMessage = "Login Success"
+			PageData.User = r.FormValue("login")
 			fmt.Fprintln(os.Stdout, "Login Success")
 		} else {
 			PageData.LoggedIn = false
@@ -93,7 +112,7 @@ func main() {
 
 			fmt.Fprintln(os.Stdout, hangman.InitializeDisplay(hiddenWord))
 
-			displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif", false, ""}
+			displayData = HangmanPage{hiddenWord, string(hangman.InitializeDisplay((hiddenWord))), 6, []string{}, []string{}, "/static/img/r6-operators-list-" + hiddenWord + ".avif", false, "", 0}
 			fmt.Fprintln(os.Stdout, hiddenWord)
 			fmt.Fprintln(os.Stdout, displayData.ImgPath)
 
@@ -115,11 +134,28 @@ func main() {
 		w.Header().Set("Cache-Control", "no-store")
 		fmt.Fprintln(os.Stdout, "Treatment")
 
-		displayData.Display, displayData.Tries, displayData.IsSolved, displayData.DisplayMessage = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries, displayData.IsSolved)
+		displayData.Display, displayData.Tries, displayData.IsSolved, displayData.DisplayMessage, displayData.PointsWon = hangman.Verify(r.FormValue("mot"), &displayData.AttWrods, &displayData.AttLetters, displayData.MotCache, displayData.Display, displayData.Tries, displayData.IsSolved)
+		hangman.UpdatePoints(PageData.User, displayData.PointsWon)
+
 		fmt.Fprintln(os.Stdout, displayData.Display)
 		fmt.Fprintln(os.Stdout, displayData.Tries)
 		fmt.Fprintln(os.Stdout, displayData.IsSolved)
 		http.Redirect(w, r, "/hangman/mainGame", http.StatusSeeOther)
+	})
+
+	http.HandleFunc("/leaderboard", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "leaderboard")
+		err := hangman.GenerateLeaderboard("./view/assets/logins/loggins.txt", "./view/assets/logins/leaderboard.txt")
+		if err != nil {
+			fmt.Println("Erreur :", err)
+		}
+
+		leaderboard, err := hangman.ReadLeaderboard("./view/assets/logins/leaderboard.txt")
+		if err != nil {
+			fmt.Println("Erreur lors de la lecture du leaderboard:", err)
+			return
+		}
+		temp.ExecuteTemplate(w, "leaderboard", leaderboard)
 	})
 
 	fmt.Fprintln(os.Stdout, "Serveur démarré sur http://localhost:8085")
