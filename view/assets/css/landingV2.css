@@ -183,6 +183,9 @@ button {
 }
 
 
+.popup-logout{
+    display: block;
+}
 
 .popup-content {
     display: none;

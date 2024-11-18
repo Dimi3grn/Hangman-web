@@ -66,6 +66,14 @@ func main() {
 		temp.ExecuteTemplate(w, "landing", PageData)
 	})
 
+	http.HandleFunc("/logout/treatment", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "logout Treatment")
+		PageData.LoggedIn = false
+		fmt.Fprintln(os.Stdout, PageData.LoggedIn)
+		PageData.PageMessage = "Logout Success"
+		http.Redirect(w, r, "/landingPage", http.StatusSeeOther)
+	})
+
 	http.HandleFunc("/signup/treatment", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(os.Stdout, "Login Treatment")
 		login := r.FormValue("login")
